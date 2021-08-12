@@ -75,12 +75,15 @@ function showSummary(event) {
             })
         })
     document.querySelector("#comments").addEventListener("click", () => {
-        fetch(`http://localhost:3000/comments/${userIdInfo}`)
+        fetch(`http://localhost:3000/comments?postId=${userIdInfo}`)
             .then(response => response.json())
             .then(data => {
                 data.forEach(post => {
-                    document.getElementById("titleComments").innerText = user.username
-                    document.getElementById("bodyComments").innerText = user.email
+                    const commentBlock = `
+                                        <h3>${post.name}</h3>
+                                        <p>${post.body}</p>
+                                        `
+                    document.querySelector("#comments-container").insertAdjacentHTML("afterbegin", commentBlock)
                 })
             });
     });
